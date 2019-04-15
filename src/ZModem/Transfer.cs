@@ -500,7 +500,10 @@ namespace ZModem
                     break;
                 }
 
-                if (SerialPort.BytesToRead > 0)
+                int bytesToRead = SerialPort.BytesToRead;
+                //Response header needs to be of bytes
+                // this will prevent from loosing bytes if we read too quickly
+                if (bytesToRead > 19)
                 {
                     var buffer = new byte[SerialPort.BytesToRead];
 
